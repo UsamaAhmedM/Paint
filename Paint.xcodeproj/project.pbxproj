@@ -14,6 +14,7 @@
 		8452DE3420DD2257006CB35E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8452DE3320DD2257006CB35E /* Assets.xcassets */; };
 		8452DE3720DD2257006CB35E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8452DE3520DD2257006CB35E /* LaunchScreen.storyboard */; };
 		8452DE3A20DD2257006CB35E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE3920DD2257006CB35E /* main.m */; };
+		8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE8920DD6D08006CB35E /* SketchBoard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		8452DE3620DD2257006CB35E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8452DE3820DD2257006CB35E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8452DE3920DD2257006CB35E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8452DE8820DD6D08006CB35E /* SketchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchBoard.h; sourceTree = "<group>"; };
+		8452DE8920DD6D08006CB35E /* SketchBoard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchBoard.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 				8452DE3520DD2257006CB35E /* LaunchScreen.storyboard */,
 				8452DE3820DD2257006CB35E /* Info.plist */,
 				8452DE3920DD2257006CB35E /* main.m */,
+				8452DE8B20DD6D13006CB35E /* Sketch Board */,
 			);
 			path = Paint;
 			sourceTree = "<group>";
@@ -114,6 +118,15 @@
 				8452DE2E20DD2257006CB35E /* SecondViewController.m */,
 			);
 			path = "History Tap Screen";
+			sourceTree = "<group>";
+		};
+		8452DE8B20DD6D13006CB35E /* Sketch Board */ = {
+			isa = PBXGroup;
+			children = (
+				8452DE8820DD6D08006CB35E /* SketchBoard.h */,
+				8452DE8920DD6D08006CB35E /* SketchBoard.m */,
+			);
+			path = "Sketch Board";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +202,7 @@
 			files = (
 				8452DE2F20DD2257006CB35E /* SecondViewController.m in Sources */,
 				8452DE2920DD2256006CB35E /* AppDelegate.m in Sources */,
+				8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */,
 				8452DE3A20DD2257006CB35E /* main.m in Sources */,
 				8452DE2C20DD2256006CB35E /* FirstViewController.m in Sources */,
 			);

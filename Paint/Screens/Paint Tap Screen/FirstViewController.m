@@ -7,16 +7,19 @@
 //
 
 #import "FirstViewController.h"
+#import "SketchBoard.h"
 
 @interface FirstViewController ()
-
+@property (weak, nonatomic) IBOutlet UIImageView *sketchArea;
+@property (atomic) SketchBoard *sketchBoard;
 @end
 
 @implementation FirstViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.sketchBoard=[[SketchBoard alloc]initWithView:self.sketchArea];
+    [self.sketchArea becomeFirstResponder];
 }
 
 
