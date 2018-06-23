@@ -21,21 +21,33 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S9R-j0-rk4">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Undo" id="im0-pn-f9o">
+                                    <barButtonItem enabled="NO" image="ic_undo" style="plain" id="im0-pn-f9o">
                                         <connections>
                                             <action selector="didTapOnUndo:" destination="9pv-A4-QxB" id="DT3-qU-fT4"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="HEc-8V-7YF"/>
-                                    <barButtonItem title="Save" id="UjZ-4j-U0W" userLabel="Save">
+                                    <barButtonItem enabled="NO" image="ic_redo" id="PnU-Dg-Fed">
+                                        <connections>
+                                            <action selector="didTapOnRedo:" destination="9pv-A4-QxB" id="L6D-lp-Xdf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="TzO-1v-e8q"/>
+                                    <barButtonItem systemItem="save" id="UjZ-4j-U0W" userLabel="Save">
                                         <connections>
                                             <action selector="didTapOnSave:" destination="9pv-A4-QxB" id="fZl-qN-7On"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="TzO-1v-e8q"/>
-                                    <barButtonItem title="Redo" id="PnU-Dg-Fed">
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="xr9-Y9-x1x"/>
+                                    <barButtonItem title="Clear" id="CEQ-SU-9CQ">
                                         <connections>
-                                            <action selector="didTapOnRedo:" destination="9pv-A4-QxB" id="L6D-lp-Xdf"/>
+                                            <action selector="didTapOnClear:" destination="9pv-A4-QxB" id="LGs-53-1Ds"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="9CO-2h-8Oc"/>
+                                    <barButtonItem enabled="NO" style="plain" systemItem="done" id="V2O-VP-wbU">
+                                        <connections>
+                                            <action selector="didTapOnDone:" destination="9pv-A4-QxB" id="sWa-9H-bqn"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -43,14 +55,38 @@
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H4v-rn-ari">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CzB-hy-9ss">
+                                <rect key="frame" x="335" y="578" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="7We-i6-jFT"/>
+                                    <constraint firstAttribute="height" constant="30" id="lQH-2M-w6v"/>
+                                </constraints>
+                                <state key="normal" image="ic_color"/>
+                                <connections>
+                                    <action selector="didTapOnColorPalette:" destination="9pv-A4-QxB" eventType="touchUpInside" id="ck5-h4-jv5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xyb-MM-gdD">
+                                <rect key="frame" x="10" y="578" width="30" height="30"/>
+                                <state key="normal" title="Button" image="ic_pen"/>
+                                <connections>
+                                    <action selector="didTapToSelectWidth:" destination="9pv-A4-QxB" eventType="touchUpInside" id="0Tk-uQ-nlD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="H4v-rn-ari" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="19l-Mn-Vfb"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="S9R-j0-rk4" secondAttribute="trailing" id="7NI-WI-Idg"/>
+                            <constraint firstItem="CzB-hy-9ss" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" constant="-10" id="AQW-zm-ioQ"/>
+                            <constraint firstItem="xyb-MM-gdD" firstAttribute="height" secondItem="CzB-hy-9ss" secondAttribute="height" id="B5j-xF-6HA"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="top" secondItem="S9R-j0-rk4" secondAttribute="top" id="M6z-EB-hhd"/>
+                            <constraint firstItem="CzB-hy-9ss" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" constant="-10" id="MM5-Za-VGY"/>
                             <constraint firstItem="H4v-rn-ari" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="NJf-Vd-xBj"/>
+                            <constraint firstItem="xyb-MM-gdD" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" constant="-10" id="VTK-mI-YmC"/>
                             <constraint firstItem="H4v-rn-ari" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="Zzo-D2-OWn"/>
+                            <constraint firstItem="xyb-MM-gdD" firstAttribute="width" secondItem="CzB-hy-9ss" secondAttribute="width" id="dwn-bf-A9M"/>
+                            <constraint firstItem="xyb-MM-gdD" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="10" id="eLs-VS-zF5"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="leading" secondItem="S9R-j0-rk4" secondAttribute="leading" id="n0J-vQ-WeD"/>
                             <constraint firstItem="H4v-rn-ari" firstAttribute="top" secondItem="S9R-j0-rk4" secondAttribute="bottom" id="obT-tw-79x"/>
                         </constraints>
@@ -58,7 +94,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Paint" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="colorBarButtonItem" destination="CzB-hy-9ss" id="Xmh-7d-XYz"/>
+                        <outlet property="doneBarButton" destination="V2O-VP-wbU" id="uwe-ym-nNh"/>
+                        <outlet property="redoBarButton" destination="PnU-Dg-Fed" id="k9M-cI-Z9w"/>
                         <outlet property="sketchArea" destination="H4v-rn-ari" id="UyD-Wu-G7b"/>
+                        <outlet property="undoBarButton" destination="im0-pn-f9o" id="dbF-Vo-ZEL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -123,6 +163,10 @@
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="ic_color" width="20" height="20"/>
+        <image name="ic_pen" width="20" height="20"/>
+        <image name="ic_redo" width="20" height="20"/>
+        <image name="ic_undo" width="20" height="20"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

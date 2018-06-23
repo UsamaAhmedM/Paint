@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FirstViewDelegate.h"
 @interface SketchBoard : NSObject
 // line color
 @property (nonatomic) UIColor* drawingColor;
@@ -15,8 +15,10 @@
 @property (nonatomic) CGFloat drawingWidth;
 
 
-@property BOOL isRedoEnabled ;
-@property BOOL isUndoEnabled ;
+@property (nonatomic) BOOL isRedoEnabled ;
+@property (nonatomic) BOOL isUndoEnabled ;
+
+@property id<FirstViewDelegate> delagate ;
 
 - (instancetype) initWithView : (UIImageView*) view;
 
@@ -26,4 +28,5 @@
 - (void)saveImage;
 - (void)redo;
 - (void)undo;
+- (void)clear;
 @end

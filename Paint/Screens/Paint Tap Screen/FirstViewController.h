@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SketchBoard.h"
-
-@interface FirstViewController : UIViewController
+#import "FirstViewDelegate.h"
+@interface FirstViewController : UIViewController<FirstViewDelegate>
 
 
 @end
