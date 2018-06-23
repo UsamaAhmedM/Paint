@@ -10,7 +10,7 @@
 
 @interface SketchBoard ()
 @property (weak,atomic) UIImageView *sketch;
-@property (atomic,strong) NSNumber* drawingsCount;
+@property (atomic,strong) NSNumber* currentLineNumber;
 @property (atomic,strong) NSMutableDictionary <NSNumber*,NSMutableArray*> *drawingHistory;
 @end
 
@@ -22,12 +22,11 @@ BOOL isMainImage=YES;
 - (instancetype) initWithView : (UIImageView*) view{
     self = [super init];
     if (self && view != nil) {
-        UIImage *image = [UIImage new];
         self.sketch = view;
-        self.sketch.image=[self getImageWithSize:self.sketch.frame.size];
+        self.sketch.image=[UIImage new];
         UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragGestureTriggered:)];
         [self.sketch addGestureRecognizer:dragGesture];
-        self.drawingsCount=[NSNumber numberWithInt:-1];
+        self.currentLineNumber=[NSNumber numberWithInt:-1];
         self.drawingHistory=[NSMutableDictionary new];
         self.drawingColor = UIColor.blackColor;
         self.drawingWidth = 5.0;
@@ -46,16 +45,16 @@ BOOL isMainImage=YES;
 
 - (void)startDrawingWithPoint: (CGPoint) point{
     maxDrawingsCount++;
-    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]+1];
-    if(self.drawingsCount.intValue<maxDrawingsCount){
-        for (int i=self.drawingsCount.intValue; i < maxDrawingsCount; i++) {
+    self.currentLineNumber = [NSNumber numberWithInt:[self.currentLineNumber intValue]+1];
+    if(self.currentLineNumber.intValue<maxDrawingsCount){
+        for (int i=self.currentLineNumber.intValue; i < maxDrawingsCount; i++) {
             [self.drawingHistory removeObjectForKey:[NSNumber numberWithInt:i]];
         }
-        maxDrawingsCount=self.drawingsCount.intValue;
+        maxDrawingsCount=self.currentLineNumber.intValue;
         self.isRedoEnabled=NO;
     }
-    [self.drawingHistory setObject: [NSMutableArray new] forKey:[NSNumber numberWithInt:self.drawingsCount.intValue]];
-    NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.drawingsCount];
+    [self.drawingHistory setObject: [NSMutableArray new] forKey:[NSNumber numberWithInt:self.currentLineNumber.intValue]];
+    NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.currentLineNumber];
     [currentArray addObject: NSStringFromCGPoint(point)];
 }
 
@@ -76,18 +75,15 @@ BOOL isMainImage=YES;
 
 - (void) drawStartingFrom: (CGPoint) startPoint andEndPoint: (CGPoint) endPoint onImage: (UIImage*) image{
     
-    UIGraphicsBeginImageContext(self.sketch.frame.size);
+    UIGraphicsBeginImageContext(self.sketch.bounds.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    [image drawInRect:CGRectMake(0, 0, self.sketch.frame.size.width, self.sketch.frame.size.height)];
-    
+    [image drawAtPoint:CGPointZero];
     CGContextMoveToPoint(context, endPoint.x, endPoint.y);
     CGContextAddLineToPoint(context, startPoint.x, startPoint.y);
-    
     CGContextSetLineCap(context, kCGLineCapRound);
     CGContextSetLineWidth(context, self.drawingWidth);
     CGContextSetRGBStrokeColor(context,red , green, blue,alpha);
-    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGContextSetBlendMode(context, kCGBlendModeColor);
     CGContextStrokePath(context);
     image = UIGraphicsGetImageFromCurrentImageContext();
     if(isMainImage){
@@ -98,35 +94,34 @@ BOOL isMainImage=YES;
 
 - (void)redo{
     
-    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]+1];
+    self.currentLineNumber = [NSNumber numberWithInt:[self.currentLineNumber intValue]+1];
     
-    NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.drawingsCount];
-    for(int i=0;i<self.drawingHistory.count-2;i++){
+    NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.currentLineNumber];
+    for(int i=0;i<currentArray.count-2;i++){
         [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:i]) andEndPoint:CGPointFromString([currentArray objectAtIndex:i+1])onImage:self.sketch.image];
     }
-    if (self.drawingsCount.intValue >= maxDrawingsCount) {
+    if (self.currentLineNumber.intValue >= maxDrawingsCount) {
         self.isRedoEnabled=NO;
     }
 }
 
 
 - (void)undo{
-    if (self.drawingsCount.intValue<0) {
+    if (self.currentLineNumber.intValue<0) {
         self.isUndoEnabled=NO;
         return;
     }
     isMainImage=NO;
-    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]-1];
-    UIImage *tempImage=[self getImageWithSize:self.sketch.frame.size];
-    
-    for(int i=0;i<self.drawingsCount.intValue;i++){
+    self.currentLineNumber = [NSNumber numberWithInt:[self.currentLineNumber intValue]-1];
+    UIImage *tempImage=[UIImage new];
+    self.sketch.image=nil;
+    for(int i=0;i<self.currentLineNumber.intValue;i++){
         NSMutableArray *currentArray=[self.drawingHistory objectForKey:[NSNumber numberWithInt:i]];
-        for(int i=0;i<currentArray.count-2;i++){
-            [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:i]) andEndPoint:CGPointFromString([currentArray objectAtIndex:i+1]) onImage:tempImage];
+        for(int j=0;j<currentArray.count-2;j++){
+            [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:j]) andEndPoint:CGPointFromString([currentArray objectAtIndex:j+1]) onImage:tempImage];
         }
     }
-    self.sketch.image=tempImage;
-    [self.sketch setNeedsDisplay];
+        self.sketch.image=tempImage;
     isMainImage=YES;
     self.isRedoEnabled=YES;
 }
@@ -150,14 +145,5 @@ BOOL isMainImage=YES;
 }
 - (void) image:(UIImage*)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary*)info{
     NSLog(@"error %@ \n info %@",error,info);
-}
-- (UIImage *)getImageWithSize:(CGSize)size
-{
-    UIImage *image = [UIImage new];
-    UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
 }
 @end
