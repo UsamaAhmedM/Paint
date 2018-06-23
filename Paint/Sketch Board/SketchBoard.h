@@ -10,16 +10,20 @@
 
 @interface SketchBoard : NSObject
 // line color
-@property (nonatomic, assign) UIColor* drawingColor;
+@property (nonatomic) UIColor* drawingColor;
 // line width
-@property (nonatomic, assign) CGFloat drawingWidth;
+@property (nonatomic) CGFloat drawingWidth;
+
+
+@property BOOL isRedoEnabled ;
+@property BOOL isUndoEnabled ;
 
 - (instancetype) initWithView : (UIImageView*) view;
 
 - (void)startDrawingWithPoint: (CGPoint) point;
 - (void)continueDrawingWithPoint: (CGPoint) point;
 - (void)endDrawingWithPoint: (CGPoint) point;
-
-- (BOOL)redo;
-- (BOOL)undo;
+- (void)saveImage;
+- (void)redo;
+- (void)undo;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SketchBoard.h"
 
 @interface FirstViewController : UIViewController
 

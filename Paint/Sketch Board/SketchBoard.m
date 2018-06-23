@@ -10,27 +10,28 @@
 
 @interface SketchBoard ()
 @property (weak,atomic) UIImageView *sketch;
-@property (atomic) NSNumber* drawingsCount;
-@property (atomic) NSMutableDictionary <NSNumber*,NSMutableArray*> *drawingHistory;
-@property (atomic) NSMutableArray *lines;
+@property (atomic,strong) NSNumber* drawingsCount;
+@property (atomic,strong) NSMutableDictionary <NSNumber*,NSMutableArray*> *drawingHistory;
 @end
 
 @implementation SketchBoard
 
 CGFloat red,green,blue,alpha;
-
+int maxDrawingsCount=-1;
+BOOL isMainImage=YES;
 - (instancetype) initWithView : (UIImageView*) view{
     self = [super init];
     if (self && view != nil) {
         UIImage *image = [UIImage new];
         self.sketch = view;
-        self.sketch.image=image;
+        self.sketch.image=[self getImageWithSize:self.sketch.frame.size];
         UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragGestureTriggered:)];
         [self.sketch addGestureRecognizer:dragGesture];
-        self.drawingsCount=[NSNumber numberWithInt:0];
+        self.drawingsCount=[NSNumber numberWithInt:-1];
         self.drawingHistory=[NSMutableDictionary new];
         self.drawingColor = UIColor.blackColor;
         self.drawingWidth = 5.0;
+        self.isUndoEnabled=self.isRedoEnabled=NO;
     }else
     {
         return nil;
@@ -38,78 +39,125 @@ CGFloat red,green,blue,alpha;
     return self;
 }
 
-- (void) setDrawingColor:(UIColor *)drawingColor{
-    [drawingColor getRed:&red green:&green blue:&blue alpha:&alpha];
+- (void) setDrawingColor:(UIColor *)color{
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    _drawingColor=color;
 }
 
 - (void)startDrawingWithPoint: (CGPoint) point{
-    [self.drawingHistory setObject: [NSMutableArray new] forKey:self.drawingsCount];
+    maxDrawingsCount++;
+    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]+1];
+    if(self.drawingsCount.intValue<maxDrawingsCount){
+        for (int i=self.drawingsCount.intValue; i < maxDrawingsCount; i++) {
+            [self.drawingHistory removeObjectForKey:[NSNumber numberWithInt:i]];
+        }
+        maxDrawingsCount=self.drawingsCount.intValue;
+        self.isRedoEnabled=NO;
+    }
+    [self.drawingHistory setObject: [NSMutableArray new] forKey:[NSNumber numberWithInt:self.drawingsCount.intValue]];
     NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.drawingsCount];
     [currentArray addObject: NSStringFromCGPoint(point)];
 }
 
 
 - (void)continueDrawingWithPoint: (CGPoint) point{
-    NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.drawingsCount];
+    NSMutableArray *currentArray=[self.drawingHistory objectForKey:([NSNumber numberWithInt: self.drawingHistory.count-1])];
     [currentArray addObject: NSStringFromCGPoint(point)];
-    [self draw];
+    [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:currentArray.count-2]) andEndPoint:point onImage:self.sketch.image];
 }
 
 
 - (void)endDrawingWithPoint: (CGPoint) point{
-    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]+1];
+    NSMutableArray *currentArray=[self.drawingHistory objectForKey:([NSNumber numberWithInt: self.drawingHistory.count-1])];
+    [currentArray addObject: NSStringFromCGPoint(point)];
+    [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:currentArray.count-1]) andEndPoint:point onImage:self.sketch.image];
+    self.isUndoEnabled=YES;
 }
 
-- (void) draw {
+- (void) drawStartingFrom: (CGPoint) startPoint andEndPoint: (CGPoint) endPoint onImage: (UIImage*) image{
+    
+    UIGraphicsBeginImageContext(self.sketch.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [image drawInRect:CGRectMake(0, 0, self.sketch.frame.size.width, self.sketch.frame.size.height)];
+    
+    CGContextMoveToPoint(context, endPoint.x, endPoint.y);
+    CGContextAddLineToPoint(context, startPoint.x, startPoint.y);
+    
+    CGContextSetLineCap(context, kCGLineCapRound);
+    CGContextSetLineWidth(context, self.drawingWidth);
+    CGContextSetRGBStrokeColor(context,red , green, blue,alpha);
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGContextStrokePath(context);
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    if(isMainImage){
+        self.sketch.image=image;
+    }
+    UIGraphicsEndImageContext();
+}
+
+- (void)redo{
+    
+    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]+1];
+    
     NSMutableArray *currentArray=[self.drawingHistory objectForKey:self.drawingsCount];
-    if (currentArray.count >= 2){
-        CGPoint startPoint =  CGPointFromString([currentArray objectAtIndex:currentArray.count-2]);
-        CGPoint endPoint =  CGPointFromString([currentArray objectAtIndex:currentArray.count-1]);
-        
-        UIGraphicsBeginImageContext(self.sketch.frame.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [ self.sketch.image drawInRect:CGRectMake(0, 0, self.sketch.frame.size.width, self.sketch.frame.size.height)];
-        
-        CGContextMoveToPoint(context, startPoint.x, startPoint.y);
-        CGContextAddLineToPoint(context, endPoint.x, endPoint.y);
-        CGContextSetLineCap(context, kCGLineCapRound);
-        CGContextSetLineWidth(context, self.drawingWidth);
-        CGContextSetRGBStrokeColor(context,red , green, blue,alpha);
-        CGContextSetBlendMode(context, kCGBlendModeNormal);
-        CGContextStrokePath(context);
-        
-        self.sketch.image = UIGraphicsGetImageFromCurrentImageContext();
-      //  self.sketch.alpha = 0.0 ;
-        UIGraphicsEndImageContext();
+    for(int i=0;i<self.drawingHistory.count-2;i++){
+        [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:i]) andEndPoint:CGPointFromString([currentArray objectAtIndex:i+1])onImage:self.sketch.image];
+    }
+    if (self.drawingsCount.intValue >= maxDrawingsCount) {
+        self.isRedoEnabled=NO;
     }
 }
 
 
-- (BOOL)redo{
-    BOOL res = YES;
+- (void)undo{
+    if (self.drawingsCount.intValue<0) {
+        self.isUndoEnabled=NO;
+        return;
+    }
+    isMainImage=NO;
+    self.drawingsCount = [NSNumber numberWithInt:[self.drawingsCount intValue]-1];
+    UIImage *tempImage=[self getImageWithSize:self.sketch.frame.size];
     
-    return res;
+    for(int i=0;i<self.drawingsCount.intValue;i++){
+        NSMutableArray *currentArray=[self.drawingHistory objectForKey:[NSNumber numberWithInt:i]];
+        for(int i=0;i<currentArray.count-2;i++){
+            [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:i]) andEndPoint:CGPointFromString([currentArray objectAtIndex:i+1]) onImage:tempImage];
+        }
+    }
+    self.sketch.image=tempImage;
+    [self.sketch setNeedsDisplay];
+    isMainImage=YES;
+    self.isRedoEnabled=YES;
 }
 
-
-- (BOOL)undo{
-    BOOL res = YES;
-    
-    return res;
-}
 - (void)dragGestureTriggered:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint currentPoint = [recognizer locationInView:self.sketch];
     
-        if (recognizer.state == UIGestureRecognizerStateBegan) {
-            [self startDrawingWithPoint: currentPoint];
-        }
-        else if (recognizer.state == UIGestureRecognizerStateChanged) {
-            [self continueDrawingWithPoint: currentPoint];
-        }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded) {
-            [self endDrawingWithPoint: currentPoint];
-        }
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        [self startDrawingWithPoint: currentPoint];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged) {
+        [self continueDrawingWithPoint: currentPoint];
+    }else if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded) {
+        [self endDrawingWithPoint: currentPoint];
+    }
     
 }
-
+- (void) saveImage{
+    UIImageWriteToSavedPhotosAlbum(self.sketch.image, self,@selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+- (void) image:(UIImage*)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary*)info{
+    NSLog(@"error %@ \n info %@",error,info);
+}
+- (UIImage *)getImageWithSize:(CGSize)size
+{
+    UIImage *image = [UIImage new];
+    UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 @end
