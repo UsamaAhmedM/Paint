@@ -8,14 +8,16 @@
 
 #import "SketchBoard.h"
 #import "UIImage+UIImageExtension.h"
+#import "UIColor+ColorExtension.h"
 #import <Photos/Photos.h>
-#import "DefaultsModel.h"
+#import "Model.h"
 #import "PhotoGallaryModel.h"
-#import "PaintEntity.h"
 #import "NSDate+DateExtension.h"
 @interface SketchBoard ()
 @property (weak,atomic) UIImageView *sketch;
+// Current index of drawings
 @property (atomic,strong) NSNumber* currentLineNumber;
+// Drawings tracking
 @property (nonatomic,strong) NSMutableDictionary <NSNumber*,NSMutableArray*> *drawingHistory;
 @end
 
@@ -39,7 +41,7 @@ int maxDrawingsCount;
         drawingColors=[NSMutableArray new];
         self.drawingColor = UIColor.blackColor;
         self.drawingWidth = 5.0;
-        self.isUndoEnabled=self.isRedoEnabled=NO;
+        self.isUndoEnabled=self.isRedoEnabled=self.isErasingModeEnabled=NO;
         maxDrawingsCount=0;
     }else
     {
@@ -48,11 +50,28 @@ int maxDrawingsCount;
     return self;
 }
 
+// Change color
 - (void) setDrawingColor:(UIColor *)color{
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
     _drawingColor=color;
 }
 
+// Change Erasing mode
+-(void)setIsErasingModeEnabled:(BOOL)isErasingModeEnabled{
+    _isErasingModeEnabled=isErasingModeEnabled;
+    if(isErasingModeEnabled){
+         self.drawingColor=UIColor.yellowColor;
+    }else{
+        for(int i=drawingColors.count-1;i>=0;i--){
+                if(![[drawingColors objectAtIndex:i] compareWithColor:UIColor.yellowColor ]){
+                    self.drawingColor=[drawingColors objectAtIndex:i];
+                    return;
+            }
+    }
+    }
+}
+
+// Check if can redo
 - (void)setIsRedoEnabled:(BOOL)isRedoEnabled{
     _isRedoEnabled=isRedoEnabled;
     if (self.delagate) {
@@ -60,6 +79,7 @@ int maxDrawingsCount;
     }
 }
 
+// Check if can undo
 - (void)setIsUndoEnabled:(BOOL)isUndoEnabled{
     _isUndoEnabled=isUndoEnabled;
     if (self.delagate) {
@@ -67,6 +87,7 @@ int maxDrawingsCount;
     }
 }
 
+// fired when first start to draw
 - (void)startDrawingWithPoint: (CGPoint) point{
     self.currentLineNumber = [NSNumber numberWithInt:[self.currentLineNumber intValue]+1];
     if(self.currentLineNumber.intValue<maxDrawingsCount){
@@ -85,14 +106,14 @@ int maxDrawingsCount;
     self.isRedoEnabled=NO;
 }
 
-
+// fired when dragging to draw
 - (void)continueDrawingWithPoint: (CGPoint) point{
     NSMutableArray *currentArray=[self.drawingHistory objectForKey:([NSNumber numberWithInt: self.drawingHistory.count])];
     [currentArray addObject: NSStringFromCGPoint(point)];
     [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:currentArray.count-2]) andEndPoint:point onImage:self.sketch.image];
 }
 
-
+// fired user left tap from screen
 - (void)endDrawingWithPoint: (CGPoint) point{
     NSMutableArray *currentArray=[self.drawingHistory objectForKey:([NSNumber numberWithInt: self.drawingHistory.count])];
     [currentArray addObject: NSStringFromCGPoint(point)];
@@ -101,6 +122,7 @@ int maxDrawingsCount;
     maxDrawingsCount++;
 }
 
+// Drawing function
 - (void) drawStartingFrom: (CGPoint) startPoint andEndPoint: (CGPoint) endPoint onImage: (UIImage*) image{
     
     UIGraphicsBeginImageContext(self.sketch.bounds.size);
@@ -118,6 +140,7 @@ int maxDrawingsCount;
     self.sketch.image=image;
 }
 
+// Redo next drawing
 - (void)redo{
     
     self.currentLineNumber = [NSNumber numberWithInt:[self.currentLineNumber intValue]+1];
@@ -135,7 +158,7 @@ int maxDrawingsCount;
     }
 }
 
-
+// Undo a drawing
 - (void)undo{
     if (self.currentLineNumber.intValue==1) {
         self.isUndoEnabled=NO;
@@ -153,6 +176,8 @@ int maxDrawingsCount;
     self.drawingColor=[drawingColors lastObject];
 }
 
+// Drag recognizer keeping track on taps on the screen
+
 - (void)dragGestureTriggered:(UIPanGestureRecognizer *)recognizer
 {
     CGPoint currentPoint = [recognizer locationInView:self.sketch];
@@ -168,26 +193,24 @@ int maxDrawingsCount;
     
 }
 
+// clear sketch and start over
 - (void)clear{
     self.sketch.image=[UIImage getImageWithSize:self.sketch.bounds.size];
     self.currentLineNumber=[NSNumber numberWithInt:0];
     self.drawingHistory=[NSMutableDictionary new];
     drawingColors=[NSMutableArray new];
-    self.isUndoEnabled=self.isRedoEnabled=NO;
+    self.isUndoEnabled=self.isRedoEnabled=self.isErasingModeEnabled=NO;
     [self.sketch setNeedsLayout];
     maxDrawingsCount=0;
 }
 
+// save sketch in CoreData along with Galary
 - (void) saveImage{
     UIImage *image =self.sketch.image;   
     [[PhotoGallaryModel sharedInstance] savePhoto:image onComplete:^(NSURL *url) {
-        PaintEntity *entity=[PaintEntity new];
-        entity.ID=[[DefaultsModel sharedInstance]getPaintNumber];
-        entity.date=[NSDate getCurrentDate];
-        entity.path=url.absoluteString;
-        entity.name=[[url.absoluteString componentsSeparatedByString:@"/"] lastObject];
+        [[Model sharedInstance]savePaintNamed:[[url.absoluteString componentsSeparatedByString:@"/"] lastObject] andPath:url.absoluteString CreatedOn:[NSDate getCurrentDate]];
         
-      //  UIImage* im=[[UIImage alloc] initWithContentsOfFile:url.absoluteString];
+        NSArray *arr=[[Model sharedInstance] getPaintsFromCD];
     }];
     
 }

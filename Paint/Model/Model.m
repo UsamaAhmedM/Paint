@@ -9,6 +9,7 @@
 #import "Model.h"
 #import <CoreData/CoreData.h>
 #import "AppDelegate.h"
+#import "PaintMangedObject+CoreDataClass.h"
 
 @implementation Model
 
@@ -26,18 +27,19 @@ NSManagedObjectContext *context;
     return sharedInstance;
 }
 
-- (void) savePaint:(PaintEntity*)paint{
+- (void) savePaintNamed:(NSString*) name andPath:(NSString*)path CreatedOn:(NSDate*)date{
     
-    NSManagedObject *entityMangedObj = [NSEntityDescription insertNewObjectForEntityForName:@"Paint" inManagedObjectContext:context];
-    [entityMangedObj setValue:paint.name forKey:@"name"];
-    [entityMangedObj setValue:paint.path forKey:@"path"];
-    [entityMangedObj setValue:paint.date forKey:@"date"];
+    PaintMangedObject *entityMangedObj = [[PaintMangedObject alloc]initWithContext:context];
+    entityMangedObj.paint_id=[[DefaultsModel sharedInstance]getPaintNumber];
+    entityMangedObj.name=name;
+    entityMangedObj.path=path;
+    entityMangedObj.date=date;
     [context insertObject:entityMangedObj];
     [self saveContext];
     
 }
-- (NSArray*) getPaintsFromCD{
-    NSFetchRequest *fetchRequest = [PaintEntity fetchRequest];
+- (NSArray <PaintMangedObject* >* ) getPaintsFromCD{
+    NSFetchRequest *fetchRequest = [PaintMangedObject fetchRequest];
     fetchRequest.returnsObjectsAsFaults=NO;
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     fetchRequest.sortDescriptors = @[sortDescriptor];

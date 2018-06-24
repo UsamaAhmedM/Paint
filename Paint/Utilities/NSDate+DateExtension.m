@@ -11,7 +11,7 @@
 @implementation NSDate (DateExtension)
 + (NSDate*) getCurrentDate{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"dd-MMM-YYYY";
+    formatter.dateFormat = @"dd/MMM/YYYY";
     NSString *string = [formatter stringFromDate:[NSDate new]];
     return [formatter dateFromString:string];
 }

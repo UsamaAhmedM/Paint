@@ -15,6 +15,7 @@
 @property (nonatomic) CGFloat drawingWidth;
 
 
+@property (nonatomic) BOOL isErasingModeEnabled ;
 @property (nonatomic) BOOL isRedoEnabled ;
 @property (nonatomic) BOOL isUndoEnabled ;
 

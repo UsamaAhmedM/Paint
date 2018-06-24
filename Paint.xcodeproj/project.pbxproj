@@ -21,10 +21,12 @@
 		84BBD34120DFE85E00C72EC5 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BBD34020DFE85D00C72EC5 /* Photos.framework */; };
 		84BBD34420DFFAF300C72EC5 /* PhotoGallaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34320DFFAF300C72EC5 /* PhotoGallaryModel.m */; };
 		84BBD34720E005C600C72EC5 /* NSDate+DateExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */; };
+		84BBD34A20E01DFF00C72EC5 /* PaintCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34920E01DFF00C72EC5 /* PaintCustomCell.m */; };
+		84BBD34D20E01F3B00C72EC5 /* SecondViewPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34C20E01F3B00C72EC5 /* SecondViewPresenter.m */; };
+		84BBD35120E030F000C72EC5 /* UIColor+ColorExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD35020E030F000C72EC5 /* UIColor+ColorExtension.m */; };
 		84F5B88F20DF27D300FB18AF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F5B88E20DF27D300FB18AF /* CoreData.framework */; };
 		84F5B89520DF290C00FB18AF /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B89220DF290C00FB18AF /* Model.m */; };
 		84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */; };
-		84F5B8AE20DF323400FB18AF /* PaintEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B8AD20DF323400FB18AF /* PaintEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,12 +55,17 @@
 		84BBD34320DFFAF300C72EC5 /* PhotoGallaryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoGallaryModel.m; sourceTree = "<group>"; };
 		84BBD34520E005C600C72EC5 /* NSDate+DateExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateExtension.h"; sourceTree = "<group>"; };
 		84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateExtension.m"; sourceTree = "<group>"; };
+		84BBD34820E01DFF00C72EC5 /* PaintCustomCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaintCustomCell.h; sourceTree = "<group>"; };
+		84BBD34920E01DFF00C72EC5 /* PaintCustomCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaintCustomCell.m; sourceTree = "<group>"; };
+		84BBD34B20E01F3B00C72EC5 /* SecondViewPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewPresenter.h; sourceTree = "<group>"; };
+		84BBD34C20E01F3B00C72EC5 /* SecondViewPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewPresenter.m; sourceTree = "<group>"; };
+		84BBD34E20E01F5900C72EC5 /* SecondViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewDelegate.h; sourceTree = "<group>"; };
+		84BBD34F20E030F000C72EC5 /* UIColor+ColorExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorExtension.h"; sourceTree = "<group>"; };
+		84BBD35020E030F000C72EC5 /* UIColor+ColorExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorExtension.m"; sourceTree = "<group>"; };
 		84F5B88E20DF27D300FB18AF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84F5B89220DF290C00FB18AF /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		84F5B89320DF290C00FB18AF /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		84F5B8A720DF2BC100FB18AF /* AppCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppCoreData.xcdatamodel; sourceTree = "<group>"; };
-		84F5B8AC20DF323400FB18AF /* PaintEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaintEntity.h; sourceTree = "<group>"; };
-		84F5B8AD20DF323400FB18AF /* PaintEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaintEntity.m; sourceTree = "<group>"; };
 		C73F9A7F75F37C73EADFD0FE /* Pods-Paint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paint/Pods-Paint.debug.xcconfig"; sourceTree = "<group>"; };
 		ED3183E0C2A14D0D263EDE42 /* Pods_Paint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -103,6 +110,8 @@
 				844C278F20DE9A97004B20B4 /* UIImage+UIImageExtension.m */,
 				84BBD34520E005C600C72EC5 /* NSDate+DateExtension.h */,
 				84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */,
+				84BBD34F20E030F000C72EC5 /* UIColor+ColorExtension.h */,
+				84BBD35020E030F000C72EC5 /* UIColor+ColorExtension.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -128,7 +137,6 @@
 		8452DE2620DD2256006CB35E /* Paint */ = {
 			isa = PBXGroup;
 			children = (
-				84F5B89620DF292800FB18AF /* Pojos */,
 				844C278D20DE9A6B004B20B4 /* Utilities */,
 				8452DE4020DD226B006CB35E /* App Delagate */,
 				8452DE4120DD22BB006CB35E /* Model */,
@@ -190,6 +198,11 @@
 			children = (
 				8452DE2D20DD2257006CB35E /* SecondViewController.h */,
 				8452DE2E20DD2257006CB35E /* SecondViewController.m */,
+				84BBD34820E01DFF00C72EC5 /* PaintCustomCell.h */,
+				84BBD34920E01DFF00C72EC5 /* PaintCustomCell.m */,
+				84BBD34B20E01F3B00C72EC5 /* SecondViewPresenter.h */,
+				84BBD34C20E01F3B00C72EC5 /* SecondViewPresenter.m */,
+				84BBD34E20E01F5900C72EC5 /* SecondViewDelegate.h */,
 			);
 			path = "History Tap Screen";
 			sourceTree = "<group>";
@@ -201,15 +214,6 @@
 				8452DE8920DD6D08006CB35E /* SketchBoard.m */,
 			);
 			path = "Sketch Board";
-			sourceTree = "<group>";
-		};
-		84F5B89620DF292800FB18AF /* Pojos */ = {
-			isa = PBXGroup;
-			children = (
-				84F5B8AC20DF323400FB18AF /* PaintEntity.h */,
-				84F5B8AD20DF323400FB18AF /* PaintEntity.m */,
-			);
-			path = Pojos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,11 +331,13 @@
 				8452DE2F20DD2257006CB35E /* SecondViewController.m in Sources */,
 				8452DE2920DD2256006CB35E /* AppDelegate.m in Sources */,
 				8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */,
+				84BBD34A20E01DFF00C72EC5 /* PaintCustomCell.m in Sources */,
 				84F5B89520DF290C00FB18AF /* Model.m in Sources */,
+				84BBD35120E030F000C72EC5 /* UIColor+ColorExtension.m in Sources */,
 				8452DE3A20DD2257006CB35E /* main.m in Sources */,
 				84BBD34420DFFAF300C72EC5 /* PhotoGallaryModel.m in Sources */,
+				84BBD34D20E01F3B00C72EC5 /* SecondViewPresenter.m in Sources */,
 				84BBD34720E005C600C72EC5 /* NSDate+DateExtension.m in Sources */,
-				84F5B8AE20DF323400FB18AF /* PaintEntity.m in Sources */,
 				84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */,
 				8452DE2C20DD2256006CB35E /* FirstViewController.m in Sources */,
 				844C279020DE9A97004B20B4 /* UIImage+UIImageExtension.m in Sources */,

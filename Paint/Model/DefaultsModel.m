@@ -25,6 +25,7 @@ NSUserDefaults *defaults ;
     });
     return sharedInstance;
 }
+// get num to set as id in CoreData
 - (int) getPaintNumber{
     int num = 0;
     if ([defaults integerForKey:numberKey]) {

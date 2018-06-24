@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PaintEntity.h"
+#import "PaintMangedObject+CoreDataClass.h"
+#import "DefaultsModel.h"
 @interface Model : NSObject
 
 
 + (instancetype)sharedInstance;
-- (void) savePaint:(PaintEntity*)paint;
-- (NSArray*) getPaintsFromCD;
+- (void) savePaintNamed:(NSString*) name andPath:(NSString*)path CreatedOn:(NSDate*)date;
+- (NSArray<PaintMangedObject*>*) getPaintsFromCD;
 @end

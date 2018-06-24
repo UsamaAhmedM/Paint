@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SecondViewController : UIViewController
+#import "SecondViewDelegate.h"
+@interface SecondViewController : UIViewController<SecondViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 
 @end

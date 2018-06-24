@@ -38,6 +38,12 @@ UISlider *slider;
         [self.sketchBoard redo];
     }
 }
+- (IBAction)didTapOnEraser:(id)sender {
+    if(! self.sketchBoard.isErasingModeEnabled){
+        self.sketchBoard.isErasingModeEnabled=YES;
+        [self.doneBarButton setEnabled:YES];
+    }
+}
 
 
 - (IBAction)didTapOnSave:(id)sender {
@@ -60,6 +66,9 @@ UISlider *slider;
         [slider removeFromSuperview];
         slider=nil;
         [self.view setNeedsLayout];
+    }
+    if( self.sketchBoard.isErasingModeEnabled){
+        self.sketchBoard.isErasingModeEnabled=NO;
     }
     [self.doneBarButton setEnabled:NO];
     [self.sketchArea setUserInteractionEnabled:YES];

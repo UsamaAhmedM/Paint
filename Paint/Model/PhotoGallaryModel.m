@@ -22,6 +22,7 @@
     return sharedInstance;
 }
 
+// Save Photo to galary
 - (void) savePhoto:(UIImage*)image onComplete: ( void ( ^ )( NSURL* url) )completeBlock  {
     __block NSString* localId;
     [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
@@ -46,11 +47,7 @@
                             NSURL *imageURL = contentEditingInput.fullSizeImageURL;
                             completeBlock(imageURL);
                         }];
-                        /*
-                        [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {
-                            UIImage* newImage = [UIImage imageWithData:imageData];
-                            
-                        }];*/
+                        
                     }}];
             }
                 break;
@@ -65,6 +62,8 @@
     }];
 }
 
+
+// Get album in galary or Create if not exist
 
 - (PHAssetCollection*)findOrCreateAlbumAssetCollection:(NSString*)albumName{
     __block PHAssetCollection *collection;
