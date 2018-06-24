@@ -10,9 +10,17 @@
 
 @implementation PaintEntity
 
-@dynamic name;
-@dynamic path;
-@dynamic date;
+-(instancetype) initWithID:(int)ID withName:(NSString*) name withPath:(NSString*) path andDate:(NSDate*)date{
+    self = [super init];
+    if (self) {
+        self.ID=ID;
+        self.name=name;
+        self.date=date;
+        self.path=path;
+    }
+    return self;
+}
+
 + (NSFetchRequest *)fetchRequest{
     return [[NSFetchRequest alloc]initWithEntityName:@"Paint"];
 }

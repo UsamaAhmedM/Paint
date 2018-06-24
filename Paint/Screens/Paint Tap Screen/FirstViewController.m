@@ -42,7 +42,6 @@ UISlider *slider;
 
 - (IBAction)didTapOnSave:(id)sender {
     [self.sketchBoard saveImage];
-    [[Model sharedInstance] savePaintNamed:@"WEWE" savedAtPath:@"sadasd" onDate:[NSDate new]];
 }
 
 - (IBAction)didTapOnClear:(id)sender {

@@ -25,17 +25,19 @@ NSManagedObjectContext *context;
     });
     return sharedInstance;
 }
-- (void) savePaintNamed:(NSString*) name savedAtPath:(NSString*)path onDate:(NSDate*) date{
-    NSManagedObject *entityNameObj = [NSEntityDescription insertNewObjectForEntityForName:@"Paint" inManagedObjectContext:context];
-    [entityNameObj setValue:name forKey:@"name"];
-    [entityNameObj setValue:path forKey:@"path"];
-    [entityNameObj setValue:date forKey:@"date"];
-    [context insertObject:entityNameObj];
+
+- (void) savePaint:(PaintEntity*)paint{
+    
+    NSManagedObject *entityMangedObj = [NSEntityDescription insertNewObjectForEntityForName:@"Paint" inManagedObjectContext:context];
+    [entityMangedObj setValue:paint.name forKey:@"name"];
+    [entityMangedObj setValue:paint.path forKey:@"path"];
+    [entityMangedObj setValue:paint.date forKey:@"date"];
+    [context insertObject:entityMangedObj];
     [self saveContext];
     
 }
-- (NSArray*) getDataFromCDOfEntity:(id)entity{
-    NSFetchRequest *fetchRequest = [entity fetchRequest];
+- (NSArray*) getPaintsFromCD{
+    NSFetchRequest *fetchRequest = [PaintEntity fetchRequest];
     fetchRequest.returnsObjectsAsFaults=NO;
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     fetchRequest.sortDescriptors = @[sortDescriptor];

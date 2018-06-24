@@ -1,5 +1,5 @@
 //
-//  Model.h
+//  PhotoGallaryModel.h
 //  Paint
 //
 //  Created by Admin on 6/24/18.
@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PaintEntity.h"
-@interface Model : NSObject
+#import <Photos/Photos.h>
 
+@interface PhotoGallaryModel : NSObject
 
 + (instancetype)sharedInstance;
-- (void) savePaint:(PaintEntity*)paint;
-- (NSArray*) getPaintsFromCD;
+
+- (void) savePhoto:(UIImage*)image onComplete: ( void ( ^ )( NSURL *url) )completeBlock;
+
 @end

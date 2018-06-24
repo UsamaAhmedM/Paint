@@ -17,6 +17,10 @@
 		8452DE3720DD2257006CB35E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8452DE3520DD2257006CB35E /* LaunchScreen.storyboard */; };
 		8452DE3A20DD2257006CB35E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE3920DD2257006CB35E /* main.m */; };
 		8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE8920DD6D08006CB35E /* SketchBoard.m */; };
+		84BBD33F20DFD4F000C72EC5 /* DefaultsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD33E20DFD4F000C72EC5 /* DefaultsModel.m */; };
+		84BBD34120DFE85E00C72EC5 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84BBD34020DFE85D00C72EC5 /* Photos.framework */; };
+		84BBD34420DFFAF300C72EC5 /* PhotoGallaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34320DFFAF300C72EC5 /* PhotoGallaryModel.m */; };
+		84BBD34720E005C600C72EC5 /* NSDate+DateExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */; };
 		84F5B88F20DF27D300FB18AF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F5B88E20DF27D300FB18AF /* CoreData.framework */; };
 		84F5B89520DF290C00FB18AF /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B89220DF290C00FB18AF /* Model.m */; };
 		84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */; };
@@ -42,6 +46,13 @@
 		8452DE3920DD2257006CB35E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8452DE8820DD6D08006CB35E /* SketchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchBoard.h; sourceTree = "<group>"; };
 		8452DE8920DD6D08006CB35E /* SketchBoard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchBoard.m; sourceTree = "<group>"; };
+		84BBD33D20DFD4F000C72EC5 /* DefaultsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefaultsModel.h; sourceTree = "<group>"; };
+		84BBD33E20DFD4F000C72EC5 /* DefaultsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DefaultsModel.m; sourceTree = "<group>"; };
+		84BBD34020DFE85D00C72EC5 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		84BBD34220DFFAF300C72EC5 /* PhotoGallaryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoGallaryModel.h; sourceTree = "<group>"; };
+		84BBD34320DFFAF300C72EC5 /* PhotoGallaryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoGallaryModel.m; sourceTree = "<group>"; };
+		84BBD34520E005C600C72EC5 /* NSDate+DateExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateExtension.h"; sourceTree = "<group>"; };
+		84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateExtension.m"; sourceTree = "<group>"; };
 		84F5B88E20DF27D300FB18AF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		84F5B89220DF290C00FB18AF /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 		84F5B89320DF290C00FB18AF /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
@@ -57,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BBD34120DFE85E00C72EC5 /* Photos.framework in Frameworks */,
 				84F5B88F20DF27D300FB18AF /* CoreData.framework in Frameworks */,
 				3FAABFF0E159D18D3A552280 /* Pods_Paint.framework in Frameworks */,
 			);
@@ -77,6 +89,7 @@
 		359F4479C960540C6BE88F59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84BBD34020DFE85D00C72EC5 /* Photos.framework */,
 				84F5B88E20DF27D300FB18AF /* CoreData.framework */,
 				ED3183E0C2A14D0D263EDE42 /* Pods_Paint.framework */,
 			);
@@ -88,6 +101,8 @@
 			children = (
 				844C278E20DE9A97004B20B4 /* UIImage+UIImageExtension.h */,
 				844C278F20DE9A97004B20B4 /* UIImage+UIImageExtension.m */,
+				84BBD34520E005C600C72EC5 /* NSDate+DateExtension.h */,
+				84BBD34620E005C600C72EC5 /* NSDate+DateExtension.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -143,6 +158,10 @@
 				84F5B89320DF290C00FB18AF /* Model.h */,
 				84F5B89220DF290C00FB18AF /* Model.m */,
 				84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */,
+				84BBD33D20DFD4F000C72EC5 /* DefaultsModel.h */,
+				84BBD33E20DFD4F000C72EC5 /* DefaultsModel.m */,
+				84BBD34220DFFAF300C72EC5 /* PhotoGallaryModel.h */,
+				84BBD34320DFFAF300C72EC5 /* PhotoGallaryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,10 +329,13 @@
 				8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */,
 				84F5B89520DF290C00FB18AF /* Model.m in Sources */,
 				8452DE3A20DD2257006CB35E /* main.m in Sources */,
+				84BBD34420DFFAF300C72EC5 /* PhotoGallaryModel.m in Sources */,
+				84BBD34720E005C600C72EC5 /* NSDate+DateExtension.m in Sources */,
 				84F5B8AE20DF323400FB18AF /* PaintEntity.m in Sources */,
 				84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */,
 				8452DE2C20DD2256006CB35E /* FirstViewController.m in Sources */,
 				844C279020DE9A97004B20B4 /* UIImage+UIImageExtension.m in Sources */,
+				84BBD33F20DFD4F000C72EC5 /* DefaultsModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

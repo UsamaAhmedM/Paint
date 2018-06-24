@@ -8,7 +8,11 @@
 
 #import "SketchBoard.h"
 #import "UIImage+UIImageExtension.h"
-
+#import <Photos/Photos.h>
+#import "DefaultsModel.h"
+#import "PhotoGallaryModel.h"
+#import "PaintEntity.h"
+#import "NSDate+DateExtension.h"
 @interface SketchBoard ()
 @property (weak,atomic) UIImageView *sketch;
 @property (atomic,strong) NSNumber* currentLineNumber;
@@ -175,11 +179,19 @@ int maxDrawingsCount;
 }
 
 - (void) saveImage{
-    UIImageWriteToSavedPhotosAlbum(self.sketch.image, self,@selector(image:didFinishSavingWithError:contextInfo:), nil);
+    UIImage *image =self.sketch.image;   
+    [[PhotoGallaryModel sharedInstance] savePhoto:image onComplete:^(NSURL *url) {
+        PaintEntity *entity=[PaintEntity new];
+        entity.ID=[[DefaultsModel sharedInstance]getPaintNumber];
+        entity.date=[NSDate getCurrentDate];
+        entity.path=url.absoluteString;
+        entity.name=[[url.absoluteString componentsSeparatedByString:@"/"] lastObject];
+        
+      //  UIImage* im=[[UIImage alloc] initWithContentsOfFile:url.absoluteString];
+    }];
+    
 }
 
-- (void) image:(UIImage*)image didFinishSavingWithError:(NSError *)error contextInfo:(NSDictionary*)info{
-    NSLog(@"error %@ \n info %@",error,info);
-}
+
 
 @end

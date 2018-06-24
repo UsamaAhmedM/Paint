@@ -8,11 +8,14 @@
 
 #import <CoreData/CoreData.h>
 
-@interface PaintEntity : NSManagedObject
+@interface PaintEntity : NSObject
 
+@property int ID;
 @property (nullable, nonatomic) NSString *name;
 @property (nullable, nonatomic) NSString *path;
 @property (nullable, nonatomic) NSDate *date;
+
+- (instancetype ) initWithID:(int)ID withName:(NSString*) name withPath:(NSString*) path andDate:(NSDate*)date;
 + (NSFetchRequest *_Nonnull)fetchRequest;
 
 @end
