@@ -9,6 +9,7 @@
 #import "FirstViewController.h"
 #import "UIImage+UIImageExtension.h"
 #import "NKOColorPickerView.h"
+#import "Model.h"
 
 @interface FirstViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *sketchArea;
@@ -41,6 +42,7 @@ UISlider *slider;
 
 - (IBAction)didTapOnSave:(id)sender {
     [self.sketchBoard saveImage];
+    [[Model sharedInstance] savePaintNamed:@"WEWE" savedAtPath:@"sadasd" onDate:[NSDate new]];
 }
 
 - (IBAction)didTapOnClear:(id)sender {

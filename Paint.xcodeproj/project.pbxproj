@@ -17,6 +17,10 @@
 		8452DE3720DD2257006CB35E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8452DE3520DD2257006CB35E /* LaunchScreen.storyboard */; };
 		8452DE3A20DD2257006CB35E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE3920DD2257006CB35E /* main.m */; };
 		8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8452DE8920DD6D08006CB35E /* SketchBoard.m */; };
+		84F5B88F20DF27D300FB18AF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F5B88E20DF27D300FB18AF /* CoreData.framework */; };
+		84F5B89520DF290C00FB18AF /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B89220DF290C00FB18AF /* Model.m */; };
+		84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */; };
+		84F5B8AE20DF323400FB18AF /* PaintEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5B8AD20DF323400FB18AF /* PaintEntity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,12 @@
 		8452DE3920DD2257006CB35E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8452DE8820DD6D08006CB35E /* SketchBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SketchBoard.h; sourceTree = "<group>"; };
 		8452DE8920DD6D08006CB35E /* SketchBoard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SketchBoard.m; sourceTree = "<group>"; };
+		84F5B88E20DF27D300FB18AF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		84F5B89220DF290C00FB18AF /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
+		84F5B89320DF290C00FB18AF /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		84F5B8A720DF2BC100FB18AF /* AppCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppCoreData.xcdatamodel; sourceTree = "<group>"; };
+		84F5B8AC20DF323400FB18AF /* PaintEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaintEntity.h; sourceTree = "<group>"; };
+		84F5B8AD20DF323400FB18AF /* PaintEntity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaintEntity.m; sourceTree = "<group>"; };
 		C73F9A7F75F37C73EADFD0FE /* Pods-Paint.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paint.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Paint/Pods-Paint.debug.xcconfig"; sourceTree = "<group>"; };
 		ED3183E0C2A14D0D263EDE42 /* Pods_Paint.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paint.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -47,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F5B88F20DF27D300FB18AF /* CoreData.framework in Frameworks */,
 				3FAABFF0E159D18D3A552280 /* Pods_Paint.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +77,7 @@
 		359F4479C960540C6BE88F59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84F5B88E20DF27D300FB18AF /* CoreData.framework */,
 				ED3183E0C2A14D0D263EDE42 /* Pods_Paint.framework */,
 			);
 			name = Frameworks;
@@ -101,6 +113,7 @@
 		8452DE2620DD2256006CB35E /* Paint */ = {
 			isa = PBXGroup;
 			children = (
+				84F5B89620DF292800FB18AF /* Pojos */,
 				844C278D20DE9A6B004B20B4 /* Utilities */,
 				8452DE4020DD226B006CB35E /* App Delagate */,
 				8452DE4120DD22BB006CB35E /* Model */,
@@ -127,6 +140,9 @@
 		8452DE4120DD22BB006CB35E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				84F5B89320DF290C00FB18AF /* Model.h */,
+				84F5B89220DF290C00FB18AF /* Model.m */,
+				84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,6 +182,15 @@
 				8452DE8920DD6D08006CB35E /* SketchBoard.m */,
 			);
 			path = "Sketch Board";
+			sourceTree = "<group>";
+		};
+		84F5B89620DF292800FB18AF /* Pojos */ = {
+			isa = PBXGroup;
+			children = (
+				84F5B8AC20DF323400FB18AF /* PaintEntity.h */,
+				84F5B8AD20DF323400FB18AF /* PaintEntity.m */,
+			);
+			path = Pojos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,7 +308,10 @@
 				8452DE2F20DD2257006CB35E /* SecondViewController.m in Sources */,
 				8452DE2920DD2256006CB35E /* AppDelegate.m in Sources */,
 				8452DE8A20DD6D08006CB35E /* SketchBoard.m in Sources */,
+				84F5B89520DF290C00FB18AF /* Model.m in Sources */,
 				8452DE3A20DD2257006CB35E /* main.m in Sources */,
+				84F5B8AE20DF323400FB18AF /* PaintEntity.m in Sources */,
+				84F5B8A820DF2BC100FB18AF /* AppCoreData.xcdatamodeld in Sources */,
 				8452DE2C20DD2256006CB35E /* FirstViewController.m in Sources */,
 				844C279020DE9A97004B20B4 /* UIImage+UIImageExtension.m in Sources */,
 			);
@@ -425,6 +453,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ThirdWayV.Paint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "Swift 4.0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -439,6 +468,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ThirdWayV.Paint;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = "Swift 4.0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -465,6 +495,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84F5B8A620DF2BC100FB18AF /* AppCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84F5B8A720DF2BC100FB18AF /* AppCoreData.xcdatamodel */,
+			);
+			currentVersion = 84F5B8A720DF2BC100FB18AF /* AppCoreData.xcdatamodel */;
+			path = AppCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8452DE1C20DD2256006CB35E /* Project object */;
 }
