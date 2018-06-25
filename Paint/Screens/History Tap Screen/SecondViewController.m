@@ -9,6 +9,8 @@
 #import "SecondViewController.h"
 #import "SecondViewPresenter.h"
 #import "PaintCustomCell.h"
+#import "FirstViewController.h"
+
 @interface SecondViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -16,7 +18,7 @@
 
 @implementation SecondViewController
 SecondViewPresenter *presenter;
-UIAlertController *alertController;
+UIAlertController *delAlertController;
 NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinary;
 
 - (void)viewDidLoad {
@@ -59,20 +61,27 @@ NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinar
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(!alertController){
-        alertController =  [UIAlertController alertControllerWithTitle:@"Select" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    if(!delAlertController){
+        delAlertController =  [UIAlertController alertControllerWithTitle:@"Select" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete drawing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [presenter deletePaintFromCD:[[dataDictinary objectForKey:[[dataDictinary allKeys]objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
-            alertController=nil;
+            delAlertController=nil;
+        }];
+        UIAlertAction *reuse = [UIAlertAction actionWithTitle:@"Use to paint" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            FirstViewController *controller = (FirstViewController*)[[self.tabBarController viewControllers] firstObject];
+            controller.reuseImage=[[[dataDictinary objectForKey:[[dataDictinary allKeys]objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]valueForKey:@"path"];
+            [self.tabBarController setSelectedIndex: 0];
+            delAlertController=nil;
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            alertController=nil;
+            delAlertController=nil;
         }];
-        [alertController addAction:delete];
-        [alertController addAction:cancel];
+        [delAlertController addAction:reuse];
+        [delAlertController addAction:delete];
+        [delAlertController addAction:cancel];
         
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self presentViewController:delAlertController animated:YES completion:nil];
     }
 }
 

@@ -11,4 +11,5 @@
 @protocol FirstViewDelegate <NSObject>
 - (void) redoStatus:(BOOL)isEnabled;
 - (void) undoStatus:(BOOL)isEnabled;
+- (void) showAlertWithTitle:(NSString*)title andMsg:(NSString*)msg;
 @end

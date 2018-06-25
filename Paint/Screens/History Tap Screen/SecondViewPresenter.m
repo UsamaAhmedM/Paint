@@ -42,5 +42,6 @@ NSDateFormatter *formatter;
 
 - (void) deletePaintFromCD:(PaintMangedObject*) paint {
     [model deletePaint:paint];
+    [self getDataFromDB];
 }
 @end

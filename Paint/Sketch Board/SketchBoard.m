@@ -231,6 +231,7 @@ int maxDrawingsCount;
     UIImage *image =self.sketch.image;   
     [[PhotoGallaryModel sharedInstance] savePhoto:image onComplete:^(NSURL *url) {
         [[Model sharedInstance]savePaintNamed:[[url.absoluteString componentsSeparatedByString:@"/"] lastObject] andPath:[[url.absoluteString componentsSeparatedByString:@":"]lastObject] CreatedOn:[NSDate getCurrentDate]];
+        [self.delagate showAlertWithTitle:@"Success" andMsg:@"Image saved successfully"];
     }];
     
 }

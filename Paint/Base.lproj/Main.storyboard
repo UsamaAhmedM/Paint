@@ -127,6 +127,7 @@
                         <outlet property="colorBarButtonItem" destination="CzB-hy-9ss" id="Xmh-7d-XYz"/>
                         <outlet property="doneBarButton" destination="V2O-VP-wbU" id="uwe-ym-nNh"/>
                         <outlet property="redoBarButton" destination="PnU-Dg-Fed" id="k9M-cI-Z9w"/>
+                        <outlet property="saveBarButton" destination="UjZ-4j-U0W" id="k6O-EP-7VY"/>
                         <outlet property="sketchArea" destination="H4v-rn-ari" id="UyD-Wu-G7b"/>
                         <outlet property="undoBarButton" destination="im0-pn-f9o" id="dbF-Vo-ZEL"/>
                     </connections>

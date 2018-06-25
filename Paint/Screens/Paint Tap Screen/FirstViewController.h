@@ -11,6 +11,7 @@
 #import "FirstViewDelegate.h"
 @interface FirstViewController : UIViewController<FirstViewDelegate,UIImagePickerControllerDelegate>
 
+@property (weak, nonatomic) NSString *reuseImage;
 
 @end
 

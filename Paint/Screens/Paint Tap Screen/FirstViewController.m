@@ -8,6 +8,7 @@
 
 #import "FirstViewController.h"
 #import "UIImage+UIImageExtension.h"
+#import "NKOColorPickerView.h"
 #import "Model.h"
 
 @interface FirstViewController ()
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoBarButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoBarButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveBarButton;
 @property (atomic) SketchBoard *sketchBoard;
 @end
 
@@ -58,6 +60,7 @@ UISlider *slider;
 
 
 - (IBAction)didTapOnSave:(id)sender {
+    [self.saveBarButton setEnabled:NO];
     [self.sketchBoard saveImage];
 }
 
@@ -133,12 +136,20 @@ UISlider *slider;
     self.sketchBoard.delagate=self;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if(self.reuseImage){
+        [self.sketchBoard clear];
+        self.sketchBoard.backGroundImage=[[UIImage alloc] initWithContentsOfFile:self.reuseImage];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+# pragma view delegate
 
 - (void) redoStatus:(BOOL)isEnabled{
     [self.redoBarButton setEnabled:isEnabled];
@@ -146,6 +157,16 @@ UISlider *slider;
 - (void) undoStatus:(BOOL)isEnabled{
     [self.undoBarButton setEnabled:isEnabled];
 }
+
+- (void) showAlertWithTitle:(NSString*)title andMsg:(NSString*)msg{
+    
+    [self.saveBarButton setEnabled:YES];
+    UIAlertController *alert =  [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:ok];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 # pragma Image picker delagate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

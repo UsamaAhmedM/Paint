@@ -1,0 +1,16 @@
+PODS:
+  - NKOColorPickerView (0.5)
+
+DEPENDENCIES:
+  - NKOColorPickerView
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - NKOColorPickerView
+
+SPEC CHECKSUMS:
+  NKOColorPickerView: 895ca86fe5bd16f27c311ce8f5888907efee29ad
+
+PODFILE CHECKSUM: 573a57de98db2cd8e4f8b9ddabe6a4f13414c81c
+
+COCOAPODS: 1.5.0
