@@ -19,9 +19,8 @@
     UIGraphicsEndImageContext();
     return image;
 }
-+ (UIImage *)getImageWithSize:(CGSize)size
++ (UIImage *)getImage:(UIImage*)image WithSize:(CGSize)size
 {
-    UIImage *image = [UIImage new];
     UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     image = UIGraphicsGetImageFromCurrentImageContext();

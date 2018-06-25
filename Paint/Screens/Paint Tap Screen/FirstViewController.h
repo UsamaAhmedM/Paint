@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SketchBoard.h"
 #import "FirstViewDelegate.h"
-@interface FirstViewController : UIViewController<FirstViewDelegate>
+@interface FirstViewController : UIViewController<FirstViewDelegate,UIImagePickerControllerDelegate>
 
 
 @end

@@ -22,6 +22,10 @@
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>App needs to access library in order to save photo</string>
+    
+    <key>NSLocalizedDescription</key>
+    <string>App needs to access library in order to select photo</string>
+    
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -27,13 +27,13 @@ NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinar
     [super viewWillAppear:animated];
     [presenter getDataFromDB];
 }
-// PRAGMA : Delagate
+# pragma  Delagate
 - (void) updateTableDataWith: (NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*>*) data{
     dataDictinary=data;
     [self.tableView reloadData];
     
 }
- // PRAGMA : Table view section
+# pragma Table view section
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return dataDictinary.count;
@@ -51,7 +51,7 @@ NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinar
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PaintCustomCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PaintCustomCell"];
     PaintMangedObject *currentDisplayed =[[dataDictinary objectForKey:[[dataDictinary allKeys]objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    cell.paintImageView.image= [[UIImage alloc] initWithContentsOfFile:[[[currentDisplayed valueForKey:@"path"] componentsSeparatedByString:@":"]lastObject]];
+    cell.paintImageView.image= [[UIImage alloc] initWithContentsOfFile:[currentDisplayed valueForKey:@"path"]];
     cell.paintName.text=currentDisplayed.name;
     
     return cell;

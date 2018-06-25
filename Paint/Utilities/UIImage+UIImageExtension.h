@@ -10,5 +10,5 @@
 
 @interface UIImage (UIImageExtension)
 + (UIImage *)imageFromColor:(UIColor *)color;
-+ (UIImage *)getImageWithSize:(CGSize)size;
++ (UIImage *)getImage:(UIImage*)image WithSize:(CGSize)size;
 @end

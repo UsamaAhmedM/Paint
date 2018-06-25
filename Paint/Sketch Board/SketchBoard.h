@@ -14,7 +14,7 @@
 // line width
 @property (nonatomic) CGFloat drawingWidth;
 
-
+@property (nonatomic) UIImage *backGroundImage;
 @property (nonatomic) BOOL isErasingModeEnabled ;
 @property (nonatomic) BOOL isRedoEnabled ;
 @property (nonatomic) BOOL isUndoEnabled ;

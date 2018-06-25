@@ -33,7 +33,7 @@ int maxDrawingsCount;
     if (self && view != nil) {
         self.sketch = view;
         [self.sketch setUserInteractionEnabled:YES];
-        self.sketch.image=[UIImage getImageWithSize:self.sketch.bounds.size];
+        self.sketch.image=[UIImage getImage:[UIImage new] WithSize:self.sketch.bounds.size];
         UIPanGestureRecognizer *dragGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragGestureTriggered:)];
         [self.sketch addGestureRecognizer:dragGesture];
         self.currentLineNumber=[NSNumber numberWithInt:0];
@@ -49,7 +49,17 @@ int maxDrawingsCount;
     }
     return self;
 }
-
+// set background image
+- (void)setBackGroundImage:(UIImage *)backGroundImage{
+    _backGroundImage= [UIImage getImage:backGroundImage WithSize:self.sketch.bounds.size];
+    CGSize newSize = CGSizeMake(self.sketch.bounds.size.width, self.sketch.bounds.size.height);
+    UIGraphicsBeginImageContext( newSize );
+    [_backGroundImage drawInRect:CGRectMake(self.sketch.bounds.origin.x,self.sketch.bounds.origin.y,self.sketch.bounds.size.width,self.sketch.bounds.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
+    [self.sketch.image drawInRect:CGRectMake(self.sketch.bounds.origin.x,self.sketch.bounds.origin.y,self.sketch.bounds.size.width,self.sketch.bounds.size.height) blendMode:kCGBlendModeColor alpha:0.5];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [self.sketch setImage:newImage];
+}
 // Change color
 - (void) setDrawingColor:(UIColor *)color{
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
@@ -60,10 +70,10 @@ int maxDrawingsCount;
 -(void)setIsErasingModeEnabled:(BOOL)isErasingModeEnabled{
     _isErasingModeEnabled=isErasingModeEnabled;
     if(isErasingModeEnabled){
-         self.drawingColor=UIColor.yellowColor;
+         self.drawingColor=UIColor.whiteColor;
     }else{
         for(int i=drawingColors.count-1;i>=0;i--){
-                if(![[drawingColors objectAtIndex:i] compareWithColor:UIColor.yellowColor ]){
+                if(![[drawingColors objectAtIndex:i] compareWithColor:UIColor.whiteColor ]){
                     self.drawingColor=[drawingColors objectAtIndex:i];
                     return;
             }
@@ -133,7 +143,7 @@ int maxDrawingsCount;
     CGContextSetLineCap(context, kCGLineCapRound);
     CGContextSetLineWidth(context, self.drawingWidth);
     CGContextSetRGBStrokeColor(context,red , green, blue,alpha);
-    CGContextSetBlendMode(context, kCGBlendModeColor);
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
     CGContextStrokePath(context);
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -164,7 +174,7 @@ int maxDrawingsCount;
         self.isUndoEnabled=NO;
     }
     self.isRedoEnabled=YES;
-    self.sketch.image=[UIImage getImageWithSize:self.sketch.bounds.size];
+    self.sketch.image=[UIImage getImage:self.backGroundImage WithSize:self.sketch.bounds.size];
     for(int i=0;i<self.currentLineNumber.intValue-1;i++){
         NSMutableArray *currentArray=[self.drawingHistory objectForKey:[NSNumber numberWithInt:i+1]];
         self.drawingColor=[drawingColors objectAtIndex:i];
@@ -195,7 +205,7 @@ int maxDrawingsCount;
 
 // clear sketch and start over
 - (void)clear{
-    self.sketch.image=[UIImage getImageWithSize:self.sketch.bounds.size];
+    self.sketch.image=[UIImage getImage:[UIImage new] WithSize:self.sketch.bounds.size];
     self.currentLineNumber=[NSNumber numberWithInt:0];
     self.drawingHistory=[NSMutableDictionary new];
     drawingColors=[NSMutableArray new];
@@ -208,9 +218,7 @@ int maxDrawingsCount;
 - (void) saveImage{
     UIImage *image =self.sketch.image;   
     [[PhotoGallaryModel sharedInstance] savePhoto:image onComplete:^(NSURL *url) {
-        [[Model sharedInstance]savePaintNamed:[[url.absoluteString componentsSeparatedByString:@"/"] lastObject] andPath:url.absoluteString CreatedOn:[NSDate getCurrentDate]];
-        
-        NSArray *arr=[[Model sharedInstance] getPaintsFromCD];
+        [[Model sharedInstance]savePaintNamed:[[url.absoluteString componentsSeparatedByString:@"/"] lastObject] andPath:[[url.absoluteString componentsSeparatedByString:@":"]lastObject] CreatedOn:[NSDate getCurrentDate]];
     }];
     
 }

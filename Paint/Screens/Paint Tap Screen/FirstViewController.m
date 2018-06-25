@@ -23,6 +23,7 @@
 @implementation FirstViewController
 
 NKOColorPickerView *colorPickerView;
+UIImagePickerController *imagePickerController;
 UISlider *slider;
 
 - (IBAction)didTapOnUndo:(id)sender {
@@ -31,6 +32,14 @@ UISlider *slider;
     }
 }
 
+- (IBAction)didTapOnCamera:(id)sender {
+    if(!imagePickerController){
+    imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.delegate = self;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+    }
+}
 
 - (IBAction)didTapOnRedo:(id)sender {
     
@@ -42,6 +51,8 @@ UISlider *slider;
     if(! self.sketchBoard.isErasingModeEnabled){
         self.sketchBoard.isErasingModeEnabled=YES;
         [self.doneBarButton setEnabled:YES];
+    }else{
+        self.sketchBoard.isErasingModeEnabled=NO;
     }
 }
 
@@ -120,5 +131,14 @@ UISlider *slider;
 }
 - (void) undoStatus:(BOOL)isEnabled{
     [self.undoBarButton setEnabled:isEnabled];
+}
+# pragma Image picker delagate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    self.sketchBoard.backGroundImage=image;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    imagePickerController=nil;
 }
 @end
