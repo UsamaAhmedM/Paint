@@ -8,6 +8,7 @@
 
 #import "SecondViewPresenter.h"
 #import "Model.h"
+#import "PhotoGallaryModel.h"
 @implementation SecondViewPresenter
 Model* model;
 NSDateFormatter *formatter;
@@ -22,26 +23,28 @@ NSDateFormatter *formatter;
     }
     return self;
 }
+
 -(void)getDataFromDB{
-    NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinary;
-    NSArray<PaintMangedObject*> *coreDataArray=[model getPaintsFromCD];
-    if (coreDataArray.count >0 ) {
-        dataDictinary=[NSMutableDictionary new];
-        for (PaintMangedObject* currentObj in coreDataArray) {
-            NSString *dateKey=[formatter stringFromDate:currentObj.date];
-            if([[dataDictinary allKeys]containsObject:dateKey]){
-                [[dataDictinary objectForKey:dateKey] addObject:currentObj];
-            }else{
-                [dataDictinary setObject:[NSMutableArray new] forKey:dateKey];
-                [[dataDictinary objectForKey:dateKey] addObject:currentObj];
+        NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinary;
+        NSArray<PaintMangedObject*> *coreDataArray=[model getPaintsFromCD];
+        if (coreDataArray.count >0 ) {
+            dataDictinary=[NSMutableDictionary new];
+            for (PaintMangedObject* currentObj in coreDataArray) {
+                NSString *dateKey=[formatter stringFromDate:currentObj.date];
+                if([[dataDictinary allKeys]containsObject:dateKey]){
+                    [[dataDictinary objectForKey:dateKey] addObject:currentObj];
+                }else{
+                    [dataDictinary setObject:[NSMutableArray new] forKey:dateKey];
+                    [[dataDictinary objectForKey:dateKey] addObject:currentObj];
+                }
             }
         }
-        [self.delagate updateTableDataWith:dataDictinary];
+    [self.delagate updateTableDataWith:dataDictinary];
     }
-}
 
 - (void) deletePaintFromCD:(PaintMangedObject*) paint {
     [model deletePaint:paint];
+    [[PhotoGallaryModel sharedInstance]deletePhotoWithUrl:[paint valueForKey:@"path"]];
     [self getDataFromDB];
 }
 @end

@@ -13,6 +13,7 @@
 
 @interface FirstViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *sketchArea;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *cameraBarButton;
 @property (weak, nonatomic) IBOutlet UIButton *colorBarButtonItem;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *undoBarButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *redoBarButton;
@@ -35,6 +36,9 @@ UISlider *slider;
 }
 
 - (IBAction)didTapOnCamera:(id)sender {
+
+    [self.sketchBoard clear];
+    [self.cameraBarButton setEnabled:NO];
     if(!imagePickerController){
     imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -175,5 +179,6 @@ UISlider *slider;
     self.sketchBoard.backGroundImage=image;
     [picker dismissViewControllerAnimated:YES completion:nil];
     imagePickerController=nil;
+    [self.cameraBarButton setEnabled:YES];
 }
 @end

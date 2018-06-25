@@ -14,5 +14,5 @@
 + (instancetype)sharedInstance;
 
 - (void) savePhoto:(UIImage*)image onComplete: ( void ( ^ )( NSURL *url) )completeBlock;
-
+- (void) deletePhotoWithUrl:(NSString*)url;
 @end

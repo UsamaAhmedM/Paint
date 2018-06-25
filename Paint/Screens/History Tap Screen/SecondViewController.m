@@ -32,7 +32,11 @@ NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinar
 }
 # pragma  Delagate
 - (void) updateTableDataWith: (NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*>*) data{
+    if(data){
     dataDictinary=data;
+    }else{
+        [dataDictinary removeAllObjects];
+    }
     [self.tableView reloadData];
     
 }

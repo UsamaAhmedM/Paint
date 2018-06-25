@@ -52,9 +52,7 @@
             }
                 break;
             case PHAuthorizationStatusDenied :
-                // Permission Denied
-                NSLog(@"User denied");
-                break;
+                [self savePhoto:image onComplete:completeBlock];
             default:
                 NSLog(@"Restricted");
                 break;
@@ -62,6 +60,11 @@
     }];
 }
 
+// Delete photo
+- (void) deletePhotoWithUrl:(NSString*)url{
+    NSError* error=nil;
+    [[NSFileManager defaultManager] removeItemAtPath:url error:&error];
+}
 
 // Get album in galary or Create if not exist
 

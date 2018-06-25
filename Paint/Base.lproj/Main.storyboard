@@ -124,6 +124,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Paint" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="cameraBarButton" destination="8Uo-uN-qMb" id="7iX-6o-f4g"/>
                         <outlet property="colorBarButtonItem" destination="CzB-hy-9ss" id="Xmh-7d-XYz"/>
                         <outlet property="doneBarButton" destination="V2O-VP-wbU" id="uwe-ym-nNh"/>
                         <outlet property="redoBarButton" destination="PnU-Dg-Fed" id="k9M-cI-Z9w"/>

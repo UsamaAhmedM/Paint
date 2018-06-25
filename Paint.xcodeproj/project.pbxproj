@@ -188,13 +188,13 @@
 		84D2708120E094DF005846FD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84D2708220E094DF005846FD /* AppCoreData.xcdatamodeld */,
+				84D2708820E094DF005846FD /* Model.h */,
 				84D2708420E094DF005846FD /* Model.m */,
 				84D2708520E094DF005846FD /* PhotoGallaryModel.h */,
-				84D2708620E094DF005846FD /* DefaultsModel.m */,
 				84D2708720E094DF005846FD /* PhotoGallaryModel.m */,
-				84D2708820E094DF005846FD /* Model.h */,
 				84D2708920E094DF005846FD /* DefaultsModel.h */,
+				84D2708620E094DF005846FD /* DefaultsModel.m */,
+				84D2708220E094DF005846FD /* AppCoreData.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
