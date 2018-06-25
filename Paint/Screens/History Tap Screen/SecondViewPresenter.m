@@ -38,6 +38,9 @@ NSDateFormatter *formatter;
         }
         [self.delagate updateTableDataWith:dataDictinary];
     }
-    
+}
+
+- (void) deletePaintFromCD:(PaintMangedObject*) paint {
+    [model deletePaint:paint];
 }
 @end

@@ -16,6 +16,7 @@
 
 @implementation SecondViewController
 SecondViewPresenter *presenter;
+UIAlertController *alertController;
 NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinary;
 
 - (void)viewDidLoad {
@@ -55,6 +56,24 @@ NSMutableDictionary<NSString*,NSMutableArray<PaintMangedObject*>*> *dataDictinar
     cell.paintName.text=currentDisplayed.name;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(!alertController){
+        alertController =  [UIAlertController alertControllerWithTitle:@"Select" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *delete = [UIAlertAction actionWithTitle:@"Delete drawing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [presenter deletePaintFromCD:[[dataDictinary objectForKey:[[dataDictinary allKeys]objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row]];
+            alertController=nil;
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            alertController=nil;
+        }];
+        [alertController addAction:delete];
+        [alertController addAction:cancel];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 @end

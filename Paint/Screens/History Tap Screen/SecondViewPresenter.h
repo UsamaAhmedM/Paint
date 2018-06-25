@@ -13,4 +13,5 @@
 @property id<SecondViewDelegate> delagate;
 - initWithDelagate:(id<SecondViewDelegate>) delagate;
 -(void)getDataFromDB;
+- (void) deletePaintFromCD:(PaintMangedObject*) paint ;
 @end

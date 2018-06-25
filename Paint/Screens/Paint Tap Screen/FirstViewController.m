@@ -8,7 +8,6 @@
 
 #import "FirstViewController.h"
 #import "UIImage+UIImageExtension.h"
-#import "NKOColorPickerView.h"
 #import "Model.h"
 
 @interface FirstViewController ()
@@ -24,6 +23,7 @@
 
 NKOColorPickerView *colorPickerView;
 UIImagePickerController *imagePickerController;
+UIAlertController *alertController ;
 UISlider *slider;
 
 - (IBAction)didTapOnUndo:(id)sender {
@@ -62,7 +62,21 @@ UISlider *slider;
 }
 
 - (IBAction)didTapOnClear:(id)sender {
-    [self.sketchBoard clear];
+    if(!alertController){
+        alertController =  [UIAlertController alertControllerWithTitle:@"Select" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+     
+        UIAlertAction *clearALL = [UIAlertAction actionWithTitle:@"Clear all drawing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.sketchBoard clear];
+            alertController=nil;
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            alertController=nil;
+        }];
+        [alertController addAction:clearALL];
+        [alertController addAction:cancel];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (IBAction)didTapOnDone:(id)sender {

@@ -51,14 +51,26 @@ int maxDrawingsCount;
 }
 // set background image
 - (void)setBackGroundImage:(UIImage *)backGroundImage{
+    if(backGroundImage !=nil){
     _backGroundImage= [UIImage getImage:backGroundImage WithSize:self.sketch.bounds.size];
-    CGSize newSize = CGSizeMake(self.sketch.bounds.size.width, self.sketch.bounds.size.height);
+        CGSize newSize = self.sketch.bounds.size;
     UIGraphicsBeginImageContext( newSize );
     [_backGroundImage drawInRect:CGRectMake(self.sketch.bounds.origin.x,self.sketch.bounds.origin.y,self.sketch.bounds.size.width,self.sketch.bounds.size.height) blendMode:kCGBlendModeNormal alpha:1.0];
     [self.sketch.image drawInRect:CGRectMake(self.sketch.bounds.origin.x,self.sketch.bounds.origin.y,self.sketch.bounds.size.width,self.sketch.bounds.size.height) blendMode:kCGBlendModeColor alpha:0.5];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    [self.sketch setImage:newImage];
+        [self.sketch setImage:newImage];
+    
+    for (int j=0; j<[self.currentLineNumber intValue]; j++) {
+        NSMutableArray *currentArray=[self.drawingHistory objectForKey:[NSNumber numberWithInt:j]];
+        self.drawingColor=[drawingColors objectAtIndex:j];
+        for(int i=0;i<currentArray.count-2;i++){
+            [self drawStartingFrom:CGPointFromString([currentArray objectAtIndex:i]) andEndPoint:CGPointFromString([currentArray objectAtIndex:i+1])onImage:self.sketch.image];
+        }
+    }
+    }
+    
+    
 }
 // Change color
 - (void) setDrawingColor:(UIColor *)color{

@@ -38,6 +38,12 @@ NSManagedObjectContext *context;
     [self saveContext];
     
 }
+
+- (void) deletePaint:(PaintMangedObject*) paint {
+    [context deleteObject:paint];
+    [self saveContext];
+}
+
 - (NSArray <PaintMangedObject* >* ) getPaintsFromCD{
     NSFetchRequest *fetchRequest = [PaintMangedObject fetchRequest];
     fetchRequest.returnsObjectsAsFaults=NO;

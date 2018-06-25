@@ -14,5 +14,6 @@
 
 + (instancetype)sharedInstance;
 - (void) savePaintNamed:(NSString*) name andPath:(NSString*)path CreatedOn:(NSDate*)date;
+- (void) deletePaint:(PaintMangedObject*) paint ;
 - (NSArray<PaintMangedObject*>*) getPaintsFromCD;
 @end
