@@ -65,7 +65,21 @@ UISlider *slider;
 
 - (IBAction)didTapOnSave:(id)sender {
     [self.saveBarButton setEnabled:NO];
-    [self.sketchBoard saveImage];
+    UIAlertController * saveAlert = [UIAlertController alertControllerWithTitle: @"Save"
+                                                                        message: @"Input Paint name "
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [saveAlert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Image Name";
+        textField.textColor = [UIColor blueColor];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+    }];
+    [saveAlert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSArray * textfields = saveAlert.textFields;
+        UITextField * namefield = textfields[0];
+        [self.sketchBoard saveImageWithName:namefield.text];
+    }]];
+    [self presentViewController:saveAlert animated:YES completion:nil];
 }
 
 - (IBAction)didTapOnClear:(id)sender {

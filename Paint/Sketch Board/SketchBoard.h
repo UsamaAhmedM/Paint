@@ -26,7 +26,7 @@
 - (void)startDrawingWithPoint: (CGPoint) point;
 - (void)continueDrawingWithPoint: (CGPoint) point;
 - (void)endDrawingWithPoint: (CGPoint) point;
-- (void)saveImage;
+- (void)saveImageWithName:(NSString*)name;
 - (void)redo;
 - (void)undo;
 - (void)clear;

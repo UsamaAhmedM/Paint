@@ -227,10 +227,10 @@ int maxDrawingsCount;
 }
 
 // save sketch in CoreData along with Galary
-- (void) saveImage{
+- (void) saveImageWithName:(NSString*)name{
     UIImage *image =self.sketch.image;   
     [[PhotoGallaryModel sharedInstance] savePhoto:image onComplete:^(NSURL *url) {
-        [[Model sharedInstance]savePaintNamed:[[url.absoluteString componentsSeparatedByString:@"/"] lastObject] andPath:[[url.absoluteString componentsSeparatedByString:@":"]lastObject] CreatedOn:[NSDate getCurrentDate]];
+        [[Model sharedInstance]savePaintNamed:name andPath:[[url.absoluteString componentsSeparatedByString:@":"]lastObject] CreatedOn:[NSDate getCurrentDate]];
         [self.delagate showAlertWithTitle:@"Success" andMsg:@"Image saved successfully"];
     }];
     
